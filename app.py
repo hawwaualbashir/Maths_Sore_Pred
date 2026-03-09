@@ -5,7 +5,7 @@ import joblib
 
 model = joblib.load("math_score_prediction_model.pkl")
 
-model_columns = joblib.load("model_columns.pkl")
+columns = joblib.load("model_columns.pkl")
 
 st.title("STUDENTS MATHS PERFORMANCE PREDICTION")
 
@@ -96,6 +96,7 @@ if st.button("Predict"):
     result = "Pass" if prediction[0] == 1 else "Fail"
 
     st.success(f"Predicted result: {result}")
+
 
 
 
