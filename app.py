@@ -86,11 +86,12 @@ if submit:
     input_data = pd.get_dummies(input_data)
 
 
-    prediction = model.predict(input_data)
+    prediction = model.predict(input_data.values)
 
     if prediction[0] == 1:
         st.success("✅ The student will PASS math")
     else:
         st.error("❌ The student may FAIL math")
+
 
 
