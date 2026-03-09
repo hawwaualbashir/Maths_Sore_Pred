@@ -1,7 +1,23 @@
 import streamlit as st 
 import pandas as pd
 import joblib
+import os
 
+
+def load_model_and_columns():
+    model_path = "math_score_prediction_model.pkl"
+    columns_path = "model_columns.pkl"
+
+    if not os.path.exists(model_path) or not os.path.exists(columns_path):
+        st.error("Model or columns file not found!")
+        return None, None
+
+    model = joblib.load("math_score_prediction_model.pkl")
+    model_columns = joblib.load("model_columns.pkl") 
+    return model, model_columns
+
+
+model, model_columns = load_model_and_columns()
 
 model = joblib.load("math_score_prediction_model.pkl")
 
@@ -72,7 +88,7 @@ submit = form.form_submit_button("Predict")
 
 
 
-if st.button("Predict"):
+if st.button("Predict") and model is not None:
 
     input_data = pd.DataFrame({
         "gender":[gender],
@@ -96,6 +112,7 @@ if st.button("Predict"):
     result = "Pass" if prediction[0] == 1 else "Fail"
 
     st.success(f"Predicted result: {result}")
+
 
 
 
