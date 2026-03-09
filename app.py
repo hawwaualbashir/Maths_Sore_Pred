@@ -4,6 +4,8 @@ import joblib
 
 
 model = joblib.load("math_score_prediction_model.pkl")
+model_columns = joblib.load("model_columns.pkl")
+
 
 st.title("STUDENTS MATHS PERFORMANCE PREDICTION")
 
@@ -83,15 +85,17 @@ if submit:
     })
 
 
-    input_data = pd.get_dummies(input_data)
+   input_encoded = pd.get_dummies(input_data)
 
 
-    prediction = model.predict(input_data.values)
-
-    if prediction[0] == 1:
-        st.success("✅ The student will PASS math")
-    else:
-        st.error("❌ The student may FAIL math")
+    input_encoded = input_encoded.reindex(columns= model_columns, fill_value=0)
 
 
+    if st.button("Predict"):
+
+    prediction = model.predict(input_encoded)
+
+    result = "Pass" if prediction[0] == 1 else "Fail"
+    
+    st.success(f"Predicted result: {result}")
 
