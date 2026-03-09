@@ -84,9 +84,6 @@ writing_score = form.number_input(
 )
 
 
-submit = form.form_submit_button("Predict")
-
-
 
 if st.button("Predict") and model is not None:
 
@@ -112,6 +109,7 @@ if st.button("Predict") and model is not None:
     result = "Pass" if prediction[0] == 1 else "Fail"
 
     st.success(f"Predicted result: {result}")
+
 
 
 
