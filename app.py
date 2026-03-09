@@ -72,7 +72,7 @@ submit = form.form_submit_button("Predict")
 
 
 
-if submit:
+if st.button("Predict"):
 
     input_data = pd.DataFrame({
         "gender":[gender],
@@ -85,13 +85,10 @@ if submit:
     })
 
 
-   input_encoded = pd.get_dummies(input_data)
-
+    input_encoded = pd.get_dummies(input_data)
 
     input_encoded = input_encoded.reindex(columns= model_columns, fill_value=0)
 
-
-    if st.button("Predict"):
 
     prediction = model.predict(input_encoded)
 
